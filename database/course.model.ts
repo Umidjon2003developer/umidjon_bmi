@@ -7,12 +7,13 @@ const CourseSchema = new Schema(
 		learning: String,
 		requirements: String,
 		level: String,
-		cateogry: String,
+		category: String,
 		language: String,
 		oldPrice: Number,
 		currentPrice: Number,
 		previewImage: String,
 		published: { type: Boolean, default: false },
+		instructor: { type: Schema.Types.ObjectId, ref: 'User' },
 	},
 	{ timestamps: true }
 )
