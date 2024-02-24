@@ -14,3 +14,9 @@ export interface ICourse {
 	slug: string
 	tags: string
 }
+
+export interface ISection {
+	title: string
+	_id: string
+	position: number
+}

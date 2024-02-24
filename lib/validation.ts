@@ -43,3 +43,7 @@ export const priceSchema = z.object({
 	oldPrice: z.string(),
 	currentPrice: z.string(),
 })
+
+export const sectionSchema = z.object({
+	title: z.string().min(3),
+})
