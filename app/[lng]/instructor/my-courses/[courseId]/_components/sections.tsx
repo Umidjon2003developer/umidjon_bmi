@@ -141,6 +141,7 @@ function Forms({ course, onToggle }: FormsProps) {
 			error: 'Something went wrong!',
 		})
 	}
+
 	return (
 		<>
 			{isLoading && <FillLoading />}
