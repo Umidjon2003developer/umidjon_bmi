@@ -26,13 +26,14 @@ import { Button } from '../ui/button'
 import { createCourse } from '@/actions/course.action'
 import { toast } from 'sonner'
 import { ChangeEvent, useState } from 'react'
-import { getDownloadURL, uploadString } from 'firebase/storage'
-import { courseStorageRefs } from '@/lib/firebase'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { storage } from '@/lib/firebase'
 import { ImageDown } from 'lucide-react'
 import { Dialog, DialogContent } from '../ui/dialog'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
+import { v4 as uuidv4 } from 'uuid'
 
 function CourseFieldsForm() {
 	const [isLoading, setIsLoading] = useState(false)
@@ -56,12 +57,11 @@ function CourseFieldsForm() {
 
 		reader.readAsDataURL(file)
 		reader.onload = e => {
+			const refs = ref(storage, `/praktikum/course/${uuidv4()}`)
 			const result = e.target?.result as string
-			const promise = uploadString(courseStorageRefs, result, 'data_url').then(
-				() => {
-					getDownloadURL(courseStorageRefs).then(url => setPreviewImage(url))
-				}
-			)
+			const promise = uploadString(refs, result, 'data_url').then(() => {
+				getDownloadURL(refs).then(url => setPreviewImage(url))
+			})
 
 			toast.promise(promise, {
 				loading: 'Uploading...',
