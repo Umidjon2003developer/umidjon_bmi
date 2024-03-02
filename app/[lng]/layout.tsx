@@ -42,7 +42,7 @@ function RootLayout({ children, params: { lng } }: Props) {
 		<ClerkProvider localization={local}>
 			<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
 				<body
-					className={`${roboto.variable} ${spaceGrotesk.variable} overflow-x-hidden`}
+					className={`${roboto.variable} ${spaceGrotesk.variable} custom-scrollbar overflow-x-hidden`}
 					suppressHydrationWarning
 				>
 					<ThemeProvider
@@ -52,7 +52,7 @@ function RootLayout({ children, params: { lng } }: Props) {
 						disableTransitionOnChange
 					>
 						<Toaster position='top-center' />
-						{children}
+						<div>{children}</div>
 					</ThemeProvider>
 				</body>
 			</html>

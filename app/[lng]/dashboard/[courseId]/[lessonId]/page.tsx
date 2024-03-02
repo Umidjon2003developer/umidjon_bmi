@@ -2,6 +2,7 @@ import { getLesson } from '@/actions/lesson.action'
 import { translation } from '@/i18n/server'
 import parse from 'html-react-parser'
 import VideoLesson from './_components/video-lesson'
+import MobileCurriculum from './_components/mobile-curriculum'
 
 interface Props {
 	params: { lessonId: string; courseId: string; lng: string }
@@ -23,6 +24,9 @@ async function Page({ params: { courseId, lessonId, lng } }: Props) {
 					</div>
 				</div>
 			)}
+			<div className='block lg:hidden'>
+				<MobileCurriculum courseId={courseId} lng={lng} />
+			</div>
 		</>
 	)
 }
