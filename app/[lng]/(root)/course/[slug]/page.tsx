@@ -12,8 +12,13 @@ import {
 } from '@/components/ui/carousel'
 import CourseCard from '@/components/cards/course.card'
 import { translation } from '@/i18n/server'
-import { getDetailedCourse, getFeaturedCourses } from '@/actions/course.action'
+import {
+	getDetailedCourse,
+	getFeaturedCourses,
+	getIsPurchase,
+} from '@/actions/course.action'
 import { ICourse } from '@/app.types'
+import { auth } from '@clerk/nextjs'
 
 interface Props {
 	params: { lng: string; slug: string }
@@ -21,9 +26,10 @@ interface Props {
 
 async function Page({ params: { lng, slug } }: Props) {
 	const { t } = await translation(lng)
-
+	const { userId } = auth()
 	const courseJSON = await getDetailedCourse(slug)
 	const coursesJSON = await getFeaturedCourses()
+	const isPurchase = await getIsPurchase(userId!, slug)
 
 	const course = JSON.parse(JSON.stringify(courseJSON))
 	const courses = JSON.parse(JSON.stringify(coursesJSON))
@@ -39,7 +45,7 @@ async function Page({ params: { lng, slug } }: Props) {
 						<Overview {...course} />
 					</div>
 					<div className='col-span-1 max-lg:col-span-3'>
-						<Description {...course} />
+						<Description course={course} isPurchase={isPurchase} />
 					</div>
 				</div>
 

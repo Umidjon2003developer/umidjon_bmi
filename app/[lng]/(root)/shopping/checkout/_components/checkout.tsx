@@ -1,5 +1,6 @@
 'use client'
 
+import { purchaseCourse } from '@/actions/course.action'
 import { payment } from '@/actions/payment.action'
 import FillLoading from '@/components/shared/fill-loading'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -15,14 +16,18 @@ import { Input } from '@/components/ui/input'
 import { useCart } from '@/hooks/use-cart'
 import useTranslate from '@/hooks/use-translate'
 import { addressSchema } from '@/lib/validation'
+import { useAuth } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
 	CardCvcElement,
 	CardExpiryElement,
 	CardNumberElement,
+	useElements,
+	useStripe,
 } from '@stripe/react-stripe-js'
 import { AlertCircle } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -31,9 +36,13 @@ function Checkout() {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState('')
 
+	const elements = useElements()
+	const stripe = useStripe()
 	const { resolvedTheme } = useTheme()
-	const { totalPrice, taxes } = useCart()
+	const { totalPrice, taxes, carts, clearCart } = useCart()
 	const t = useTranslate()
+	const { userId } = useAuth()
+	const router = useRouter()
 
 	const cardStyles = {
 		base: {
@@ -58,7 +67,42 @@ function Checkout() {
 	})
 
 	const onSubmit = async (values: z.infer<typeof addressSchema>) => {
-		await payment(1000)
+		if (!stripe || !elements) return null
+		setLoading(true)
+
+		const { address, city, fullName, zip } = values
+
+		const { error, paymentMethod } = await stripe.createPaymentMethod({
+			type: 'card',
+			card: elements.getElement(CardNumberElement)!,
+			billing_details: {
+				name: fullName,
+				address: { line1: address, city, postal_code: zip },
+			},
+		})
+
+		if (error) {
+			setLoading(false)
+			setError(`${t('paymentError')} ${error.message}`)
+		} else {
+			const price = totalPrice() + taxes()
+			const clientSecret = await payment(price, userId!, paymentMethod.id)
+
+			const { error, paymentIntent } = await stripe.confirmCardPayment(
+				clientSecret!
+			)
+
+			if (error) {
+				setLoading(false)
+				setError(`${t('paymentError')} ${error.message}`)
+			} else {
+				for (const course of carts) {
+					purchaseCourse(course._id, userId!)
+				}
+				router.push(`/shopping/success?pi=${paymentIntent.id}`)
+				setTimeout(clearCart, 5000)
+			}
+		}
 	}
 
 	return (
