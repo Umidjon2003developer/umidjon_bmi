@@ -17,6 +17,8 @@ import { useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/hooks/use-cart'
 import Link from 'next/link'
+import { toast } from 'sonner'
+import { addWishlistCourse } from '@/actions/course.action'
 
 interface Props {
 	course: ICourse
@@ -34,6 +36,21 @@ function Description({ course, isPurchase }: Props) {
 		setIsLoading(true)
 		addToCart(course)
 		router.push('/shopping/cart')
+	}
+
+	const onAdd = () => {
+		if (!userId) return toast.error('Please Sign Up!')
+		setIsLoading(true)
+
+		const promise = addWishlistCourse(course._id, userId!).finally(() =>
+			setIsLoading(false)
+		)
+
+		toast.promise(promise, {
+			loading: t('loading'),
+			success: t('successfully'),
+			error: `${t('alreadyAdded')} Whishlist!`,
+		})
 	}
 
 	return (
@@ -73,6 +90,7 @@ function Description({ course, isPurchase }: Props) {
 				className='relative mt-2 w-full font-bold'
 				variant={'outline'}
 				disabled={isLoading}
+				onClick={onAdd}
 			>
 				{t('addWishlist')}
 			</Button>

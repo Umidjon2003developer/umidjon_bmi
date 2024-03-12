@@ -12,8 +12,13 @@ import { usePathname } from 'next/navigation'
 import { setFlag } from '@/actions/review.action'
 import { toast } from 'sonner'
 import FillLoading from '../shared/fill-loading'
+import { FaCheck, FaTimes } from 'react-icons/fa'
 
-function InstructorReviewCard({ review }: { review: IReview }) {
+interface Props {
+	review: IReview
+	isProfile?: boolean
+}
+function InstructorReviewCard({ review, isProfile }: Props) {
 	const [isLoading, setIsLoading] = useState(false)
 	const pathname = usePathname()
 
@@ -57,16 +62,29 @@ function InstructorReviewCard({ review }: { review: IReview }) {
 					</div>
 				</div>
 			</div>
-			<Button
-				size={'icon'}
-				variant={'ghost'}
-				className='self-start'
-				onClick={handleFlag}
-			>
-				<Flag
-					className={cn('text-muted-foreground', review.isFlag && 'fill-white')}
-				/>
-			</Button>
+			{isProfile ? (
+				<Button variant={'ghost'} size={'icon'} className='self-start'>
+					{review.isFlag ? (
+						<FaTimes className='text-red-500' />
+					) : (
+						<FaCheck className='text-green-500' />
+					)}
+				</Button>
+			) : (
+				<Button
+					size={'icon'}
+					variant={'ghost'}
+					className='self-start'
+					onClick={handleFlag}
+				>
+					<Flag
+						className={cn(
+							'text-muted-foreground',
+							review.isFlag && 'fill-white'
+						)}
+					/>
+				</Button>
+			)}
 		</div>
 	)
 }
