@@ -164,5 +164,10 @@
 	"settingsDescription": "Hesap ayarlarınız burada. Onları değiştirebilirsiniz.",
 	"toLesson": "Dersi Görüntüle",
 	"addWishlist": "İstek Listesine Ekle",
-	"newCreditCard": "Yeni Kredi Kartı"
+	"newCreditCard": "Yeni Kredi Kartı",
+	"applyCoupon": "Kuponu Uygula",
+	"applyCouponDescription": "Kullanmak için bir kupon kodu varsa girin.",
+	"couponCode": "Kupon Kodu",
+	"apply": "Uygula",
+	"appliedCoupon": "Uygulanan Kupon"
 }

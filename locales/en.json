@@ -164,5 +164,10 @@
 	"settingsDescription": "Here are your account settings. You can change them.",
 	"toLesson": "To lesson",
 	"addWishlist": "Add wishlist",
-	"newCreditCard": "New Credit Card"
+	"newCreditCard": "New Credit Card",
+	"applyCoupon": "Apply coupon",
+	"applyCouponDescription": "Enter your coupon code if you have one to use it.",
+	"couponCode": "Coupon code",
+	"apply": "Apply",
+	"appliedCoupon": "Applied coupon"
 }

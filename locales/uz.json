@@ -164,5 +164,10 @@
 	"settingsDescription": "Hisob sozlamalaringiz. Siz ularni o'zgartirishingiz mumkin.",
 	"toLesson": "Darsga",
 	"addWishlist": "Istaklar ro'yxatiga qo'shish",
-	"newCreditCard": "Yangi Kredit Kartasi"
+	"newCreditCard": "Yangi Kredit Kartasi",
+	"applyCoupon": "Kuponni qo'llash",
+	"applyCouponDescription": "Agar sizda foydalanish uchun kupon kodi bo'lsa, uni kiriting.",
+	"couponCode": "Kupon kodi",
+	"apply": "Qo'llash",
+	"appliedCoupon": "Qo'llangan kupon"
 }

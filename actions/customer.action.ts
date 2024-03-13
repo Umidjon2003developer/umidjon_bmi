@@ -48,7 +48,8 @@ export const atachPayment = async (
 		path && revalidatePath(path)
 		return await stripe.paymentMethods.attach(paymentMethod, { customer })
 	} catch (error) {
-		throw new Error("Couldn't attach payment method")
+		const result = error as Error
+		throw new Error(result.message)
 	}
 }
 
@@ -60,7 +61,8 @@ export const detachPaymentMethod = async (
 		await stripe.paymentMethods.detach(paymentMethod)
 		revalidatePath(path)
 	} catch (error) {
-		throw new Error("Couldn't detach payment method")
+		const result = error as Error
+		throw new Error(result.message)
 	}
 }
 
@@ -77,7 +79,8 @@ export const getCustomerCards = async (clerkId: string) => {
 
 		return paymentMethods.data
 	} catch (error) {
-		throw new Error("Couldn't retrieve cards")
+		const result = error as Error
+		throw new Error(result.message)
 	}
 }
 
@@ -93,6 +96,7 @@ export const getPaymentIntents = async (clerkId: string) => {
 
 		return payments.data
 	} catch (error) {
-		throw new Error("Couldn't get charges")
+		const result = error as Error
+		throw new Error(result.message)
 	}
 }
