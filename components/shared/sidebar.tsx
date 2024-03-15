@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { adminNavLinks, instructorNavLinks, profileNavLinks } from '@/constants'
+import useTranslate from '@/hooks/use-translate'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -10,6 +11,7 @@ interface Props {
 }
 function Sidebar({ page }: Props) {
 	const pathname = usePathname()
+	const t = useTranslate()
 
 	const getNavLinks = () => {
 		if (page === 'admin') {
@@ -34,7 +36,7 @@ function Sidebar({ page }: Props) {
 								}
 							>
 								<item.icon className='size-5 text-muted-foreground' />
-								<span>{item.label}</span>
+								<span>{t(item.label)}</span>
 							</Button>
 						</Link>
 					))}
