@@ -1,16 +1,23 @@
 import { getAdminCourses } from '@/actions/course.action'
 import { getBalance } from '@/actions/payment.action'
 import { getAdminReviews } from '@/actions/review.action'
-import { getAdminInstructors } from '@/actions/user.action'
+import { getAdminInstructors, getRole } from '@/actions/user.action'
 import AdminCourseCard from '@/components/cards/admin-course.card'
 import InstructorReviewCard from '@/components/cards/instructor-review.card'
 import InstructorCard from '@/components/cards/instructor.card'
 import StatisticsCard from '@/components/cards/statistics.card'
 import Header from '@/components/shared/header'
+import { auth } from '@clerk/nextjs'
 import { MessageSquare, MonitorPlay, User } from 'lucide-react'
+import { redirect } from 'next/navigation'
 import { GrMoney } from 'react-icons/gr'
 
 async function Page() {
+	const { userId } = auth()
+	const user = await getRole(userId!)
+
+	if (!user.isAdmin) return redirect('/')
+
 	const courseData = await getAdminCourses({})
 	const reviewData = await getAdminReviews({})
 	const instructorData = await getAdminInstructors({})
@@ -74,7 +81,7 @@ async function Page() {
 			<div className='mt-4 grid grid-cols-4 gap-4'>
 				{instructorData.instructors.map(item => (
 					<InstructorCard
-						key={item.name}
+						key={item._id}
 						instructor={JSON.parse(JSON.stringify(item))}
 					/>
 				))}

@@ -275,7 +275,7 @@ export const profileNavLinks = [
 	{ label: 'wishlist', route: '/profile/wishlist', icon: ListVideo },
 	{ label: 'creditCards', route: '/profile/credit-cards', icon: CreditCard },
 	{ label: 'reviews', route: '/profile/reviews', icon: MessageSquareMore },
-	{ label: 'Notifications', route: '/profile/notifications', icon: Bell },
+	{ label: 'notification', route: '/profile/notifications', icon: Bell },
 	{ label: 'settings', route: '/profile/settings', icon: Settings2 },
 ]
 
