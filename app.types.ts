@@ -1,3 +1,5 @@
+import { LucideIcon } from 'lucide-react'
+
 export interface ICourse {
 	_id: string
 	title: string
@@ -115,4 +117,10 @@ export interface IPayment {
 			last4: string
 		}
 	}
+}
+
+export interface INavLinks {
+	label: string
+	route: string
+	icon: LucideIcon
 }

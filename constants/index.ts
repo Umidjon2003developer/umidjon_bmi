@@ -1,4 +1,5 @@
 import {
+	Bell,
 	Contact,
 	CreditCard,
 	FileCode,
@@ -9,6 +10,7 @@ import {
 	MonitorPlay,
 	Rss,
 	Settings2,
+	User,
 } from 'lucide-react'
 import {
 	DiCisco,
@@ -218,34 +220,6 @@ export const learningJourney = [
 	},
 ]
 
-export const instructorNavLinks = [
-	{
-		label: 'Dashboard',
-		route: '/instructor',
-		icon: GaugeCircle,
-	},
-	{
-		label: 'My Courses',
-		route: '/instructor/my-courses',
-		icon: MonitorPlay,
-	},
-	{
-		label: 'Create Course',
-		route: '/instructor/create-course',
-		icon: FileCode,
-	},
-	{
-		label: 'Reviews',
-		route: '/instructor/reviews',
-		icon: MessageSquareMore,
-	},
-	{
-		label: 'Settings',
-		route: '/instructor/settings',
-		icon: Settings2,
-	},
-]
-
 export const courseLevels = ['beginner', 'intermediate', 'advanced']
 export const courseCategory = [
 	'front-end',
@@ -283,6 +257,18 @@ export const editorConfig = {
 	content_css: 'dark',
 }
 
+export const instructorNavLinks = [
+	{ label: 'Dashboard', route: '/instructor', icon: GaugeCircle },
+	{ label: 'My Courses', route: '/instructor/my-courses', icon: MonitorPlay },
+	{
+		label: 'Create Course',
+		route: '/instructor/create-course',
+		icon: FileCode,
+	},
+	{ label: 'Reviews', route: '/instructor/reviews', icon: MessageSquareMore },
+	{ label: 'Settings', route: '/instructor/settings', icon: Settings2 },
+]
+
 export const profileNavLinks = [
 	{ label: 'dashboard', route: '/profile', icon: GaugeCircle },
 	{ label: 'myCourses', route: '/profile/my-courses', icon: MonitorPlay },
@@ -290,4 +276,12 @@ export const profileNavLinks = [
 	{ label: 'creditCards', route: '/profile/credit-cards', icon: CreditCard },
 	{ label: 'reviews', route: '/profile/reviews', icon: MessageSquareMore },
 	{ label: 'settings', route: '/profile/settings', icon: Settings2 },
+]
+
+export const adminNavLinks = [
+	{ label: 'Dashboard', route: '/admin', icon: GaugeCircle },
+	{ label: 'All courses', route: '/admin/all-courses', icon: MonitorPlay },
+	{ label: 'Instructors', route: '/admin/instructors', icon: User },
+	{ label: 'Reviews', route: '/admin/reviews', icon: MessageSquareMore },
+	{ label: 'Notifications', route: '/admin/notifications', icon: Bell },
 ]

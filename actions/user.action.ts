@@ -1,7 +1,7 @@
 'use server'
 
 import { connectToDatabase } from '@/lib/mongoose'
-import { ICreateUser, IUpdateUser } from './types'
+import { GetPaginationParams, ICreateUser, IUpdateUser } from './types'
 import User from '@/database/user.model'
 import { revalidatePath } from 'next/cache'
 import Review from '@/database/review.model'
@@ -65,5 +65,26 @@ export const getUserReviews = async (clerkId: string) => {
 		return reviews
 	} catch (error) {
 		throw new Error('Error getting user reviews')
+	}
+}
+
+export const getAdminInstructors = async (params: GetPaginationParams) => {
+	try {
+		await connectToDatabase()
+		const { page = 1, pageSize = 3 } = params
+
+		const skipAmount = (page - 1) * pageSize
+
+		const instructors = await User.find({ role: 'instructor' })
+			.skip(skipAmount)
+			.limit(pageSize)
+			.sort({ createdAt: -1 })
+
+		const totalInstructors = await User.countDocuments({ role: 'instructor' })
+		const isNext = totalInstructors > skipAmount + instructors.length
+
+		return { instructors, isNext, totalInstructors }
+	} catch (error) {
+		throw new Error('Error getting instructors')
 	}
 }
