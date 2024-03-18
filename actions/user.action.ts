@@ -6,6 +6,7 @@ import User from '@/database/user.model'
 import { revalidatePath } from 'next/cache'
 import Review from '@/database/review.model'
 import Course from '@/database/course.model'
+import { cache } from 'react'
 
 export const createUser = async (data: ICreateUser) => {
 	try {
@@ -43,14 +44,14 @@ export const updateUser = async (data: IUpdateUser) => {
 	}
 }
 
-export const getUserById = async (clerkId: string) => {
+export const getUserById = cache(async (clerkId: string) => {
 	try {
 		await connectToDatabase()
 		return await User.findOne({ clerkId })
 	} catch (error) {
 		throw new Error('Error fetching user. Please try again.')
 	}
-}
+})
 
 export const getUser = async (clerkId: string) => {
 	try {

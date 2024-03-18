@@ -1,7 +1,13 @@
 import TopBar from '@/components/shared/top-bar'
 import Image from 'next/image'
 import InstructorForm from './_components/instructor-form'
+import { Metadata } from 'next'
 
+export const metadata: Metadata = {
+	title: 'Praktikum | Muallim boʻlish',
+	description:
+		'Praktikum platformasida muallim boʻlish uchun ariza qoldiring. Oʻzingizga mos kursni tuzing va oʻrganishni boshlang!',
+}
 async function Page() {
 	return (
 		<>

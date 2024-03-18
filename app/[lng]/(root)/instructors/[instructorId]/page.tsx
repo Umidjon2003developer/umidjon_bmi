@@ -9,6 +9,24 @@ import { PiStudentBold } from 'react-icons/pi'
 import SocialMedia from './_components/social-media'
 import NoResult from '@/components/shared/no-result'
 import CourseCard from '@/components/cards/course.card'
+import { Metadata, ResolvingMetadata } from 'next'
+
+export async function generateMetadata(
+	{ params }: { params: { instructorId: string } },
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const user = await getUserById(params.instructorId)
+
+	return {
+		title: `Muallim: ${user.fullName}`,
+		description: `Muallim haqida ma'lumot: ${user.bio}`,
+		openGraph: {
+			images: user.picture,
+			title: `Muallim: ${user.fullName}`,
+			description: `Muallim haqida ma'lumot: ${user.bio}`,
+		},
+	}
+}
 
 interface Props extends SearchParamsProps {
 	params: { lng: string; instructorId: string }
