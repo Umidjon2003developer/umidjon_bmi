@@ -9,7 +9,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { localization } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
 import NextTopLoader from 'nextjs-toploader'
-import Script from 'next/script'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const roboto = Roboto({
 	subsets: ['latin', 'cyrillic'],
@@ -60,21 +60,6 @@ function RootLayout({ children, params: { lng } }: Props) {
 	return (
 		<ClerkProvider localization={local}>
 			<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
-				<head>
-					<Script
-						async
-						src='https://www.googletagmanager.com/gtag/js?id=G-CFWEF93LQ3'
-					></Script>
-					<Script id='google-analytics'>
-						{`
-							window.dataLayer = window.dataLayer || [];
-							function gtag(){dataLayer.push(arguments);}
-							gtag('js', new Date());
-
-							gtag('config', 'G-CFWEF93LQ3');
-						`}
-					</Script>
-				</head>
 				<body
 					className={`${roboto.variable} ${spaceGrotesk.variable} custom-scrollbar overflow-x-hidden`}
 					suppressHydrationWarning
@@ -100,6 +85,7 @@ function RootLayout({ children, params: { lng } }: Props) {
 						<div>{children}</div>
 					</ThemeProvider>
 				</body>
+				<GoogleAnalytics gaId='G-B8NJKXCBV4' />
 			</html>
 		</ClerkProvider>
 	)

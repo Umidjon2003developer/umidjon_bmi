@@ -100,3 +100,15 @@ export const bioSchema = z.object({
 	job: z.string().min(3),
 	bio: z.string().min(10),
 })
+
+export const prompSchema = z.object({
+	prompt: z.string().min(4),
+})
+
+export const imageSchema = z.object({
+	prompt: z.string().min(1, {
+		message: 'Photo prompt is required',
+	}),
+	amount: z.string().min(1),
+	resolution: z.string().min(1),
+})
