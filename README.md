@@ -100,3 +100,4 @@ Technologies used in the project:
 - Openai
 - Query String
 - Tailwindcss
+# umidjon.bmi
