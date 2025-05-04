@@ -102,3 +102,4 @@ Technologies used in the project:
 - Tailwindcss
 # umidjon.bmi
 # umidjon_bmi
+# umidjon_bmi
