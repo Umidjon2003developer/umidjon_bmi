@@ -111,3 +111,4 @@ Technologies used in the project:
 # umidjon_bmi
 # umidjon_bmi
 # umidjon_bmi
+# umidjon_bmi
