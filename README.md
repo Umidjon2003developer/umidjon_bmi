@@ -101,3 +101,4 @@ Technologies used in the project:
 - Query String
 - Tailwindcss
 # umidjon.bmi
+# umidjon_bmi
