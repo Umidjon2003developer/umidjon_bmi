@@ -22,7 +22,8 @@ export default authMiddleware({
 		'/:lng/sign-up',
 		'/:lng/ai',
 	],
-	ignoredRoutes: ['/en/api/webhook'],
+	ignoredRoutes: ['/en/api/webhook']
+
 })
 
 export const config = {
