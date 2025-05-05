@@ -1,33 +1,27 @@
 import mongoose, { ConnectOptions } from 'mongoose'
 
-let isConnected = false
+let isConnected: boolean = false
 
 export const connectToDatabase = async () => {
 	mongoose.set('strictQuery', true)
 
-	const mongoUrl = process.env.MONGODB_URL
-	const dbName = process.env.MONGODB_DB
-
-	if (!mongoUrl || !dbName) {
-		console.error('❌ MONGODB_URL yoki MONGODB_DB topilmadi. .env faylni tekshiring.')
-		return
+	if (!process.env.MONGODB_URL) {
+		return console.log('MISSING MONGODB_URL')
 	}
 
 	if (isConnected) {
-		console.log('✅ MongoDB already connected')
-		return
+		return		
 	}
 
 	try {
 		const options: ConnectOptions = {
-			dbName: dbName,
+			dbName: process.env.MONGODB_DB,
 			autoCreate: true,
 		}
 
-		await mongoose.connect(mongoUrl, options)
+		await mongoose.connect(process.env.MONGODB_URL, options)
 		isConnected = true
-		console.log('✅ MongoDB connected')
 	} catch (error) {
-		console.error('❌ MongoDB connection failed:', error)
+		console.log('MongoDB connection failed')
 	}
 }
