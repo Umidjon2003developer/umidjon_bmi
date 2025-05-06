@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 
 	const eventType = evt.type
 
-	// 👇 EHTIYOT bilan data ni olish:
+	// ✅ Tip bilan kiritilgan userData
 	const userData = evt.data as {
 		id: string
 		email_addresses: { email_address: string }[]
@@ -91,7 +91,6 @@ export async function POST(req: Request) {
 			return NextResponse.json({ message: 'User updated', user })
 		}
 
-		// Qo‘llab-quvvatlanmagan eventlar uchun
 		return new Response('Event type not handled', { status: 200 })
 	} catch (err) {
 		console.error('Error processing event:', err)
